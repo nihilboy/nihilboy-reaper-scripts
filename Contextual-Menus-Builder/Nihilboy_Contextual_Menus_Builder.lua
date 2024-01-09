@@ -6,7 +6,16 @@
 --   A UI-script for making menus fast interactively, that are contextual under mouse cursor.
 --   ### Prerequisites
 --   ReaImGui, js_ReaScriptAPI
-
+-- @changelog
+--  + fixed properly identify top/bottom item views
+--  + corrected typo in regions timeline table
+--  + properly handle empty input on load button
+--  + added shift button range selection
+--  + better hightlight AddAction button
+--  + Automatically open/close next/previous context tree
+--  + properly format action name to cut unwanted strings
+--  + fixed add action from midi action list
+--  + Added functionality to load last opened menu on startup
 
 
 -----------------------Copied from Dear ImGui Demo-------------------------------------------------------------
