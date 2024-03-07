@@ -316,7 +316,9 @@ local function generateFinalScript()
         elseif item.separator then
           menuString = menuString .. "|"
         else
-          menuString = menuString .. item.name .. "|"
+          local tgl = reaper.GetToggleCommandStateEx(0,item.cmd);
+          if tgl == 1 then tgl = '✓' else tgl = '' end;
+          menuString = menuString .. " " .. tostring(tgl) .. " " .. item.name .. "|"
         end
       end
       return menuString
