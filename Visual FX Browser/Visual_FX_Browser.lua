@@ -1466,6 +1466,16 @@ end
 --------------------------------------! SEXAN FX BROWSER
 
 ------------------------------load configurations/categories before displaying UI--------------------------------
+-- Check operating system
+local isWindows = package.config:sub(1,1) == '\\'
+
+-- Create the directory if it doesn't exist
+if isWindows then
+    os.execute('mkdir "' .. screenshotsFolder .. '" >nul 2>nul')
+else
+    os.execute('mkdir -p "' .. screenshotsFolder .. '"')
+end
+
 if fileExists(categoriesItemsData) then
     categories = readDataFromCSV(categoriesItemsData)
     table.sort(categories, function(a, b) return a.index < b.index end)
