@@ -1,5 +1,5 @@
 -- @description A Visual FX Browser for REAPER
--- @version 1.0.2
+-- @version 1.0.3
 -- author nihilboy
 -- @about
 --   # Visual FX Browser
@@ -7,7 +7,7 @@
 --   ### Prerequisites
 --   RealmGui, js_ReaScriptAPI
 -- @changelog
---  + fine-tuned colors when use Reaper Theme
+--  + load and attach font in correct order when rendering
 
 ----------------------------------SEXAN FX BROWSER
 local r = reaper
@@ -1525,6 +1525,7 @@ for _, cat in ipairs(categories) do
 end
 ------------------------------------------------------------------------------------------
 local function displayUI()
+    loadAndAttachFonts() -- Load and attach custom fonts if requested
     local numColorsPushed = 0 -- Reset counter for each frame/used when use Reaper theme
     if useReaperTheme then
             
@@ -1566,7 +1567,7 @@ local function displayUI()
 
             numColorsPushed = numColorsPushed + 24
     end  
-    loadAndAttachFonts() -- Load and attach custom fonts if requested
+    
     if not isWindowOpen then return end  -- If the window is closed, stop deferring the display UI function
     local window_flags = ImGui.WindowFlags_NoScrollbar() --ImGui.WindowFlags_None() -- Default window flags  
     local main_viewport = ImGui.GetMainViewport(ctx) -- Get the main viewport
