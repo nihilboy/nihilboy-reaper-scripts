@@ -1,5 +1,5 @@
 -- @description A Visual FX Browser for REAPER
--- @version 1.0.3
+-- @version 1.0.4
 -- author nihilboy
 -- @about
 --   # Visual FX Browser
@@ -7,7 +7,7 @@
 --   ### Prerequisites
 --   RealmGui, js_ReaScriptAPI
 -- @changelog
---  + load and attach font in correct order when rendering
+--  + added code to save when Reaper exits
 
 ----------------------------------SEXAN FX BROWSER
 local r = reaper
@@ -1523,6 +1523,28 @@ for _, cat in ipairs(categories) do
         break -- Found the default category, no need to continue
     end
 end
+
+local function onReaperExit()
+    if ctx then -- Check if the context exists
+        -- Place the code to save settings here
+        writeDataToCSV(categoriesItemsData, categories)
+        local config = {
+            font_path = font_path and font_path:gsub("\\", "/") or nil,
+            closeAfterClick = closeAfterClick,
+            imageScale = imageScale,
+            useReaperTheme = useReaperTheme,
+            openFloatingWindows = openFloatingWindows,
+            showVST = showVST,
+            showVST3 = showVST3,
+            showJS = showJS,
+            showCLAP = showCLAP
+        }
+        saveConfig(fxBrowserConfigPath, config)
+        ImGui.DestroyContext(ctx) -- Clean up the ImGui context
+        ctx = nil -- Invalidate the context to prevent double destruction
+    end
+end
+reaper.atexit(onReaperExit)
 ------------------------------------------------------------------------------------------
 local function displayUI()
     loadAndAttachFonts() -- Load and attach custom fonts if requested
@@ -2086,7 +2108,10 @@ local function displayUI()
             showCLAP = showCLAP
         }
         saveConfig(fxBrowserConfigPath, config)
-        ImGui.DestroyContext(ctx) -- Clean up the ImGui context
+        if ctx then
+            ImGui.DestroyContext(ctx) -- Clean up the ImGui context
+            ctx = nil -- Invalidate the context to prevent double destruction
+        end
     else
         reaper.defer(displayUI) -- Continue deferring the display UI function if the window is still open
     end
