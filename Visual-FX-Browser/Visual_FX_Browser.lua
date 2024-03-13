@@ -1,11 +1,13 @@
 -- @description A Visual FX Browser for REAPER
--- @version 1.0.1
+-- @version 1.0.2
 -- author nihilboy
 -- @about
 --   # Visual FX Browser
 --   This script provides a visual interface for browsing and inserting FX, FX chains, and track templates in REAPER. It allows you to preview and insert FX, FX chains, and track templates from a visual interface. It also allows you to organize and manage FX, FX chains, and track templates.
 --   ### Prerequisites
 --   RealmGui, js_ReaScriptAPI
+-- @changelog
+--  + fine-tuned colors when use Reaper Theme
 
 ----------------------------------SEXAN FX BROWSER
 local r = reaper
@@ -1306,6 +1308,11 @@ local function DrawFXItems(tbl, main_cat_name)
                         --name = name:gsub(' %(' .. Literalize(tbl[i].name) .. '%)', "")
                     --end
                     local isSelected = browserSelectedItemNames[name] == true
+		    if useReaperTheme then
+                        if isSelected then
+                            ImGui.PushStyleColor(ctx, ImGui.Col_Text(), GetReaperThemeColorRGBA("col_vutop")) -- For background
+                        end
+                    end
                     local flags = r.ImGui_SelectableFlags_None() | r.ImGui_SelectableFlags_DontClosePopups() | r.ImGui_SelectableFlags_AllowItemOverlap()
                     if r.ImGui_Selectable(ctx, name, isSelected, flags) then
                         --! ADD YOUR CODE HERE FOR CLICK ACTION
@@ -1361,6 +1368,11 @@ local function DrawFXItems(tbl, main_cat_name)
                         end
                         LAST_USED_FX = tbl[i].fx[j]
                     end
+		    if useReaperTheme then
+                        if isSelected then
+                            ImGui.PopStyleColor(ctx, 1) -- Pop both the background and text colors if item was selected
+                        end
+                    end		
                 end
             end
             r.ImGui_EndMenu(ctx)
@@ -1514,21 +1526,10 @@ end
 ------------------------------------------------------------------------------------------
 local function displayUI()
     local numColorsPushed = 0 -- Reset counter for each frame/used when use Reaper theme
-    loadAndAttachFonts() -- Load and attach custom fonts if requested
-    if not isWindowOpen then return end  -- If the window is closed, stop deferring the display UI function
-    local window_flags = ImGui.WindowFlags_NoScrollbar() --ImGui.WindowFlags_None() -- Default window flags  
-    local main_viewport = ImGui.GetMainViewport(ctx) -- Get the main viewport
-    local work_pos = {ImGui.Viewport_GetWorkPos(main_viewport)} -- Get the work position of the main viewport
-    ImGui.SetNextWindowPos(ctx, work_pos[1] + 20, work_pos[2] + 20, ImGui.Cond_FirstUseEver()) -- Set the window position
-    ImGui.SetNextWindowSize(ctx, 550, 680, ImGui.Cond_FirstUseEver()) -- Set the window size
-    local visible, open = ImGui.Begin(ctx, 'Visual FX Browser', true,window_flags) -- Begin the window
-    isWindowOpen = open -- Update the window open state
-    if visible then -- If the window is visible
-        -- Theme application toggle
-        if useReaperTheme then
+    if useReaperTheme then
             
             ImGui.PushStyleColor(ctx, ImGui.Col_TitleBg(), GetReaperThemeColorRGBA("col_main_bg2"))
-            ImGui.PushStyleColor(ctx, ImGui.Col_TitleBgActive(), GetReaperThemeColorRGBA("col_main_text"))
+            ImGui.PushStyleColor(ctx, ImGui.Col_TitleBgActive(), GetReaperThemeColorRGBA("col_main_bg"))
             ImGui.PushStyleColor(ctx, ImGui.Col_TitleBgCollapsed(), GetReaperThemeColorRGBA("col_transport_editbk"))
         
             ImGui.PushStyleColor(ctx, ImGui.Col_PopupBg(), GetReaperThemeColorRGBA("col_main_bg"))  -- Background of popups, menus, tooltips windows
@@ -1564,7 +1565,19 @@ local function displayUI()
             ImGui.PushStyleColor(ctx, ImGui.Col_Border(), GetReaperThemeColorRGBA("col_border"))
 
             numColorsPushed = numColorsPushed + 24
-        end  
+    end  
+    loadAndAttachFonts() -- Load and attach custom fonts if requested
+    if not isWindowOpen then return end  -- If the window is closed, stop deferring the display UI function
+    local window_flags = ImGui.WindowFlags_NoScrollbar() --ImGui.WindowFlags_None() -- Default window flags  
+    local main_viewport = ImGui.GetMainViewport(ctx) -- Get the main viewport
+    local work_pos = {ImGui.Viewport_GetWorkPos(main_viewport)} -- Get the work position of the main viewport
+    ImGui.SetNextWindowPos(ctx, work_pos[1] + 20, work_pos[2] + 20, ImGui.Cond_FirstUseEver()) -- Set the window position
+    ImGui.SetNextWindowSize(ctx, 550, 680, ImGui.Cond_FirstUseEver()) -- Set the window size
+    local visible, open = ImGui.Begin(ctx, 'Visual FX Browser', true,window_flags) -- Begin the window
+    isWindowOpen = open -- Update the window open state
+    if visible then -- If the window is visible
+        -- Theme application toggle
+        
         
         local windowWidth, windowHeight = ImGui.GetContentRegionAvail(ctx) -- Get the available width and height
         local childHeight = windowHeight - 90 -- to fit in main window
