@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="nihilboy-reaper-scripts" commit="ecaa558e3521e8317718172e5fa2989c57349485">
+<index version="1" name="nihilboy-reaper-scripts" commit="5ae8e96162d83b29f15091613c7fea14a1234879">
   <category name="Contextual-Menus-Builder">
     <reapack name="Nihilboy_Contextual_Menus_Builder.lua" type="script" desc="Nihilboy Make contextual menus under mouse cursor">
       <metadata>
@@ -19,22 +19,22 @@
       </version>
     </reapack>
   </category>
-  <category name="Visual-FX-Builder">
-    <reapack name="Visual_FX_Browser_Builder_nihilboy.lua" type="script" desc="match('^ImGui_(.+)$')">
+  <category name="Visual-FX-Browser">
+    <reapack name="Visual_FX_Browser.lua" type="script" desc="A Visual FX Browser for REAPER">
       <metadata>
         <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
 \widowctrl\hyphauto
 
-{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs36 Visual FX Browser Builder nihilboy\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 A UI-script for making a Visual FX Browser.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs36 Visual FX Browser\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 This script provides a visual interface for browsing and inserting FX, FX chains, and track templates in REAPER. It allows you to preview and insert FX, FX chains, and track templates from a visual interface. It also allows you to organize and manage FX, FX chains, and track templates.\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 \b \fs28 Prerequisites\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 ReaImGui, js_ReaScriptAPI\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 RealmGui, js_ReaScriptAPI\par}
 }
 ]]></description>
       </metadata>
-      <version name="0.0.1" author="nihilboy" time="2024-02-03T23:33:00Z">
-        <source main="main">https://github.com/nihilboy/nihilboy-reaper-scripts/raw/99b5d1ad7a1d9209ba2a94bfc40cafc922679e7f/Visual-FX-Builder/Visual_FX_Browser_Builder_nihilboy.lua</source>
+      <version name="1.0.0" time="2024-03-13T00:04:28Z">
+        <source main="main">https://github.com/nihilboy/nihilboy-reaper-scripts/raw/54708dba274e5058c822f305a996764a7326165b/Visual-FX-Browser/Visual_FX_Browser.lua</source>
       </version>
     </reapack>
   </category>
