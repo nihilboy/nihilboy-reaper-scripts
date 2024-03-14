@@ -1,5 +1,5 @@
 -- @description A Visual FX Browser for REAPER
--- @version 1.0.5
+-- @version 1.0.6
 -- author nihilboy
 -- @about
 --   # Visual FX Browser
