@@ -1,5 +1,5 @@
 -- @description A Visual FX Browser for REAPER
--- @version 1.0.4
+-- @version 1.0.5
 -- author nihilboy
 -- @about
 --   # Visual FX Browser
@@ -7,7 +7,7 @@
 --   ### Prerequisites
 --   RealmGui, js_ReaScriptAPI
 -- @changelog
---  + added code to save when Reaper exits
+--  + fixed bugs
 
 ----------------------------------SEXAN FX BROWSER
 local r = reaper
@@ -1197,8 +1197,13 @@ local function DrawChainTemplatesItems(tbl, basePath, itemType)
                 r.ImGui_OpenPopup(ctx, popupId)
             end
         elseif type(item) == "string" then
+			reaper.ShowConsoleMsg("test")
+			local label = item .. "##" .. tostring(i) -- Use i or another unique value per item
+			if item == "" then
+				label = "Unnamed Item##" .. tostring(i) -- Fallback label for empty item names
+			end
             -- It's a file
-            if r.ImGui_Selectable(ctx, item) then
+            if r.ImGui_Selectable(ctx, label) then
                 local filePath = basePath .. "/" .. item
                 handleItemAddition(selectedCategoryName, itemType, filePath)
             end
@@ -2089,11 +2094,12 @@ local function displayUI()
             end
         ImGui.EndChild(ctx)
         end
-        if numColorsPushed > 0 then
-            ImGui.PopStyleColor(ctx, numColorsPushed)
-        end     
+           
     ImGui.End(ctx)
     end 
+	if numColorsPushed > 0  then
+            ImGui.PopStyleColor(ctx, numColorsPushed)
+        end  
     if not isWindowOpen then
         writeDataToCSV(categoriesItemsData, categories) -- Call your function to write to CSV
         local config = {
