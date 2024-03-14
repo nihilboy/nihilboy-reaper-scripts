@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="nihilboy-reaper-scripts" commit="c6e026cf988aa110aaaae01a0fd80538093cd2e9">
+<index version="1" name="nihilboy-reaper-scripts" commit="c98246d98857661c8ef23d8276d449cb98d8367e">
   <category name="Contextual-Menus-Builder">
     <reapack name="Nihilboy_Contextual_Menus_Builder.lua" type="script" desc="Nihilboy Make contextual menus under mouse cursor">
       <metadata>
@@ -54,6 +54,10 @@
       <version name="1.0.5" time="2024-03-14T03:06:40Z">
         <changelog><![CDATA[+ fixed bugs]]></changelog>
         <source main="main">https://github.com/nihilboy/nihilboy-reaper-scripts/raw/c6e026cf988aa110aaaae01a0fd80538093cd2e9/Visual-FX-Browser/Visual_FX_Browser.lua</source>
+      </version>
+      <version name="1.0.6" time="2024-03-14T14:58:37Z">
+        <changelog><![CDATA[+ fixed bugs]]></changelog>
+        <source main="main">https://github.com/nihilboy/nihilboy-reaper-scripts/raw/c98246d98857661c8ef23d8276d449cb98d8367e/Visual-FX-Browser/Visual_FX_Browser.lua</source>
       </version>
     </reapack>
   </category>
