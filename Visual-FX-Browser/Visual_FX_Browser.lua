@@ -1197,7 +1197,7 @@ local function DrawChainTemplatesItems(tbl, basePath, itemType)
                 r.ImGui_OpenPopup(ctx, popupId)
             end
         elseif type(item) == "string" then
-			reaper.ShowConsoleMsg("test")
+			--reaper.ShowConsoleMsg("test")
 			local label = item .. "##" .. tostring(i) -- Use i or another unique value per item
 			if item == "" then
 				label = "Unnamed Item##" .. tostring(i) -- Fallback label for empty item names
